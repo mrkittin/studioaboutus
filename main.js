@@ -16,3 +16,43 @@ var Element = function ( id, x, y, z, ry ) {
 	object.rotation.y = ry;
 	return object;
 };
+
+init();
+animate();
+
+function init() {
+	var container = document.getElementById( 'container' );
+	camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 5000 );
+	camera.position.set( 500, 350, 750 );
+	scene = new THREE.Scene();
+	renderer = new THREE.CSS3DRenderer();
+	renderer.setSize( window.innerWidth, window.innerHeight );
+	renderer.domElement.style.position = 'absolute';
+	renderer.domElement.style.top = 0;
+	container.appendChild( renderer.domElement );
+	var group = new THREE.Group();
+	group.add( new Element( 'njCDZWTI-xg', 0, 0, 240, 0 ) );
+	group.add( new Element( 'HDh4uK9PvJU', 240, 0, 0, Math.PI / 2 ) );
+	group.add( new Element( 'OX9I1KyNa8M', 0, 0, - 240, Math.PI ) );
+	group.add( new Element( 'nhORZ6Ep_jE', - 240, 0, 0, - Math.PI / 2 ) );
+	scene.add( group );
+	controls = new THREE.TrackballControls( camera );
+	controls.rotateSpeed = 4;
+	window.addEventListener( 'resize', onWindowResize, false );
+	// Block iframe events when dragging camera
+	var blocker = document.getElementById( 'blocker' );
+	blocker.style.display = 'none';
+	document.addEventListener( 'mousedown', function () { blocker.style.display = ''; } );
+	document.addEventListener( 'mouseup', function () { blocker.style.display = 'none'; } );
+}
+
+function onWindowResize() {
+	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
+	renderer.setSize( window.innerWidth, window.innerHeight );
+}
+function animate() {
+	requestAnimationFrame( animate );
+	controls.update();
+	renderer.render( scene, camera );
+}
