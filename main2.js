@@ -14,7 +14,7 @@ camera.position.z = 3;
 window.AudioContext	= window.AudioContext || window.webkitAudioContext;
 var context	= new AudioContext();
 // create the videoTexture
-var videoTexture= new THREEx.VideoTexture('videos/sintel.mp4');
+var videoTexture= new THREEx.VideoTexture('https://mrkittin.github.io/videos/sintel.mp4');
 updateFcts.push(function(delta, now){
 	videoTexture.update(delta, now);
 })
